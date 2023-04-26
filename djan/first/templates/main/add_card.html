@@ -1,0 +1,76 @@
+{% extends 'main/layout.html'%}
+
+{% block content %}
+
+    <section class="uk-section">
+        <div class="uk-container">
+
+                    <form method="post" enctype="multipart/form-data">
+                        {%csrf_token%}
+
+                        <fieldset class="uk-fieldset">
+
+                            <legend class="uk-legend">Создание карточки</legend>
+
+                            <div class="uk-margin">
+                                {{ form.name }}
+                            </div>
+
+
+                            <div class="uk-margin">
+                                {{ form.author }}
+                            </div>
+
+                            <div class="uk-margin" uk-margin>
+                                    {{form.img}}
+                            </div>
+
+
+                            <div class="uk-margin">
+                                {{ form.description }}
+                            </div>
+
+                            <div class="uk-margin">
+                               <label  class="uk-form-label uk-text-meta">Дата</label>
+                                {{ form.date }}
+                            </div>
+
+                            <div class="uk-margin">
+                                {{ form.sizeX }}
+                                {{ form.sizeY }}
+                            </div>
+
+                            <div class="uk-margin">
+                                {{ form.material }}
+                            </div>
+
+                            <div class="uk-margin">
+                               <label  class="uk-form-label uk-text-meta" for="">Объект</label>
+                                <div class="uk-inline">
+                                    {{form.obj}}
+                                </div>
+                            </div>
+
+                            <div class="uk-margin">
+                                {{ form.dir }}
+                            </div>
+
+                            <div class="uk-margin">
+                               <label  class="uk-form-label uk-text-meta" for="">Категория</label>
+                                <div class="uk-inline">
+                                    {{form.category}}
+                                </div>
+                            </div>
+
+                            <div class="uk-margin uk-margin-auto-left">
+                               <button class="uk-button uk-button-primary " name="addcard" type="submit">Сохранить</button>
+                            </div>
+
+
+                    </form>
+                    <span>{{ error }}</span>
+            </div>
+    </section>
+
+
+{% endblock %}

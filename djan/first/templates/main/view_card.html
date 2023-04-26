@@ -1,0 +1,70 @@
+{% extends 'main/layout.html'%}
+
+{% block content %}
+
+    <section class="uk-section uk-padding-remove-top ">
+
+        <div class="uk-container uk-margin-auto">
+            <h3>Действия с карточкой</h3>
+            <a href="{% url 'update' obj.id %}" class="uk-button uk-button-primary">Редактировать</a>
+            <a href="{% url 'delete' obj.id %}" class="uk-button uk-button-danger">Удалить</a>
+            <a href="{% url 'add_movement' obj.id %}" class="uk-button uk-button-primary">Добавить перемещение</a>
+            <a href="{% url 'home' %}" class="uk-button uk-button-default" >Закрыть</a>
+        </div>
+
+        <div class="uk-container uk-align-center">
+
+            <h3 class="uk-text-lead">{{ obj.name }}</h3>
+            <p class="uk-text-lead">Автор: {{ obj.author }}</p>
+
+            {% if obj.img %}
+            <p><img class="img-article-left" width="900" height="600" src="{{obj.img.url}}" uk-img></p>
+            {% endif %}
+
+            <p class="uk-text-lead">Описание:{{ obj.description }}</p>
+            <p class="uk-text-lead">Дата: {{ obj.date }}</p>
+            <p class="uk-text-lead">Размер: {{ obj.sizeX }}x{{ obj.sizeY }}</p>
+            <p class="uk-text-lead">Материал: {{ obj.material }}</p>
+
+
+            <p class="uk-text-lead">Локация: {{ obj.obj }}</p>
+            <p class="uk-text-lead">Папка: {{ obj.dir }}</p>
+            <p class="uk-text-lead">Категория: {{ obj.category }}</p>
+
+
+        </div>
+        <div class="uk-container">
+            <h3 class="uk-text-center">Журнал транзакций</h3>
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th class="uk-table-shrink"></th>
+                            <th class="uk-width-small">Дата выезда</th>
+                            <th class="uk-width-small">Откуда</th>
+                            <th class="uk-width-small">Куда</th>
+                            <th class="uk-width-small">Дата прибытия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for move in obj.movements.all|dictsort:"arrival_date" %}
+                        <tr>
+                            <td><input class="uk-checkbox" type="checkbox"></td>
+                            <td class="uk-table-link">
+                                {{move.departure_date}}
+                            </td>
+                            <td class="uk-text-truncate">{{move.first_location}}</td>
+                            <td class="uk-text-nowrap">{{move.second_location}}</td>
+                            <td class="uk-text-nowrap">{{move.arrival_date}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </section>
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'main/layout.html'%}
+
+{% block search%}
+
+    <input class="uk-input" hx-get="{% url 'search-task' %}" hx-trigger="keyup change delay:150ms" hx-target="#search-results" name="fast_search" type="search" placeholder="Быстрый поиск">
+
+{% endblock %}
+
+
+{% block form_add %}
+
+     <div class="uk-magin">
+        <form method="post">
+            <div class="uk-flex uk-flex-middle">
+                {%csrf_token%}
+                {{add_category_form.category}}
+                <button name="addcat" type="submit" class="uk-icon-button uk-margin-small-right" uk-icon="plus"></button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="uk-margin">
+        <form method="post">
+            <div class="uk-flex uk-flex-middle">
+                {%csrf_token%}
+                {{add_object_form.object}}
+                <button name="addobj" type="submit" class="uk-icon-button uk-margin-small-right" uk-icon="plus"></button>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock  %}
+
+{% block content %}
+    <section class="uk-section uk-section-default">
+        <div class="uk-container uk-container-xlarge">
+            <div id="search-results" class="uk-grid-small uk-child-width-1-1 uk-child-width-1-3@m uk-child-width-1-2@s uk-margin-auto" uk-grid uk-height-match="target: > div > .uk-card">
+                {% include 'main/cards.html'%}
+            </div>
+        </div>
+    </section>
+
+
+
+<!--    <section class="uk-section uk-section-default">-->
+<!--        <div class="uk-container uk-container-xlarge">-->
+<!--            <div class="uk-grid-small uk-child-width-1-1 uk-child-width-1-3@m uk-child-width-1-2@s uk-margin-auto" uk-grid uk-height-match="target: > div > .uk-card">-->
+<!--                {% for obj in data %}-->
+
+<!--                    <div id="search-results" class="uk-container-small " onclick="location.href='{% url 'views_detail' obj.id %}'">-->
+
+<!--                    <div class="uk-card uk-card-default uk-card-small uk-card-hover">-->
+<!--                        <div class="uk-card-header">-->
+<!--                            <div class="uk-grid-small uk-flex-middle" uk-grid>-->
+
+<!--                                <div class="uk-width-expand">-->
+<!--                                    <h3 class="uk-card-title uk-margin-remove-bottom uk-text-break">{{ obj.name }}</h3>-->
+<!--                                        <p class="uk-text-meta uk-margin-remove-top">Автор: {{ obj.author }}</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        <div class="uk-card-media">-->
+<!--                            {% if obj.img %}-->
+<!--                                <p><img class="img-article-left" width="1920" height="1080" src="{{obj.img.url}}" uk-img style="object-fit: contain"></p>-->
+<!--                                {% endif %}-->
+<!--                        </div>-->
+<!--                        <div class="uk-card-footer">-->
+<!--                            <div class="uk-child-width-1-2@m uk-text-left uk-grid-small" uk-grid>-->
+<!--                                <p class="uk-text-meta">Артикул: {{ obj.id }}</p>-->
+<!--                                <p class="uk-text-meta">Размер: {{ obj.sizeX }}x{{ obj.sizeY }}</p>-->
+<!--                                <p class="uk-text-meta">Материал: {{ obj.material }}</p>-->
+<!--                                <p class="uk-text-truncate uk-text-meta">Описание: {{ obj.description }}</p>-->
+<!--                            </div>-->
+<!--                            <div class="uk-child-width-expand@s uk-text-center" uk-grid>-->
+<!--                                <p class="uk-text-meta uk-text-break">Локация: {{ obj.obj }}</p>-->
+<!--                                <p class="uk-text-meta uk-text-break">Папка: {{ obj.dir }}</p>-->
+<!--                                <p class="uk-text-meta uk-text-break">Категория: {{ obj.category }}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+{% endblock %}

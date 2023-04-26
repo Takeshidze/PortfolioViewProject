@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'main/css/uikit.min.css' %}" />
+        <script src="{% static 'main/js/uikit.min.js' %}"></script>
+        <script src="{% static 'main/js/uikit-icons.min.js' %}"></script>
+        <script src="https://unpkg.com/htmx.org@1.8.4" integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <section class="uk-section uk-padding-remove-top">
+
+        <div uk-sticky>
+            <nav class="uk-navbar-container uk-navbar_sticky" uk-navbar>
+                <div class="uk-navbar-left uk-margin-left">
+
+                    <ul class="uk-navbar-nav">
+                        <li><a class="uk-navbar-toggle" type="button" uk-toggle="target: #offcanvas-slide" uk-navbar-toggle-icon href=""></a></li>
+                        <li class="uk-active"><a href="{% url 'home' %}">Главная</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="uk-navbar-item uk-margin-left">
+                    {% block search%}
+                    {% endblock %}
+                </div>
+                <div class="uk-navbar-right uk-margin-right">
+                    <ul class="uk-navbar-nav">
+                        <a href="{% url 'add_card' %}" class="uk-button uk-button-primary uk-visible@s">Создать карточку</a>
+                        <a href="{% url 'add_card' %}" class="uk-icon-button uk-hidden@s" uk-icon="icon: plus; ratio: 2"></a>
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+
+
+        <div id="offcanvas-slide" uk-offcanvas="overlay: true">
+            <div class="uk-offcanvas-bar">
+
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+                <h3>Поиск</h3>
+
+
+                <div class="uk-margin ">
+                    <p>Поиск по названию, автору, описанию и артикулу</p>
+                    <form class="uk-search uk-search-default" action="{% url 'home' %}">
+                    	{% csrf_token %}
+                            <input class="uk-search-input" name="search_name" type="search" placeholder="Search...">
+                            <hr class="uk-divider-small">
+
+                             <div class="uk-margin">
+                               <p>Выберете фильтр для поиска</p>
+                               <p class="uk-margin-remove-bottom">Категория:</p>
+                               <select class="uk-select" name="search_cat">
+                                    <option></option>
+                                {% for cat in categories %}
+                                    <option value="{{cat.id}}">{{ cat.category }}</option>
+                                {% endfor %}
+                                </select>
+
+                                <p class="uk-margin-remove-bottom">Объект:</p>
+                                <select class="uk-select" name="search_obj">
+                                    <option></option>
+                                {% for obj in objects %}
+                                    <option value="{{obj.id}}">{{ obj.object }}</option>
+                                {% endfor %}
+                                </select>
+
+
+                            </div>
+                            <button class="uk-button uk-button-primary" type="submit">Искать</button>
+
+
+                    </form>
+                </div>
+                <hr class="uk-divider-small">
+
+
+
+                {% block form_add %}
+
+                {% endblock %}
+
+
+
+            </div>
+        </div>
+
+    </section>
+
+    {% block content %}
+
+    {% endblock %}
+    </body>
+</html>

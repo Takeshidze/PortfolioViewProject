@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'main/css/uikit.min.css' %}" />
+        <script src="{% static 'main/js/uikit.min.js' %}"></script>
+        <script src="{% static 'main/js/uikit-icons.min.js' %}"></script>
+    </head>
+    <body>
+       <div class="uk-flex uk-height-medium  uk-margin uk-text-center">
+        <div class="uk-margin-auto uk-margin-auto-vertical uk-width-auto uk-card uk-card-default uk-card-body">
+        <p>Авторизация</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="uk-margin">
+                <div class="uk-inline">
+
+                    {{form}}
+
+                </div>
+            </div>
+
+<!--            <div class="uk-margin">-->
+<!--                <div class="uk-inline">-->
+<!--                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>-->
+<!--                    {{form.password}}-->
+
+<!--                </div>-->
+<!--            </div>-->
+            <button type="submit" class="uk-button uk-button-primary">Войти</button>
+        </form>
+
+        </div>
+        
+        </div>
+ 
+    
+    </body>
+</html>
